@@ -1,0 +1,129 @@
+// Pseudocode for Library Management App
+
+BEGIN
+
+    FUNCTION MainApp
+        DISPLAY "Home/Begin"
+        INPUT userType
+        IF userType == "Student" THEN
+            CALL StudentLogin
+        ELSE IF userType == "Librarian" THEN
+            CALL LibrarianLogin
+        ELSE
+            PRINT "Invalid User Type"
+        ENDIF
+    END FUNCTION
+
+    FUNCTION StudentLogin
+        INPUT studentID, password
+        IF Authenticate(studentID, password) THEN
+            CALL StudentPage
+        ELSE
+            PRINT "Wrong Credentials"
+        ENDIF
+    END FUNCTION
+
+    FUNCTION LibrarianLogin
+        INPUT librarianID, password
+        IF Authenticate(librarianID, password) THEN
+            CALL LibrarianPage
+        ELSE
+            PRINT "Wrong Credentials"
+        ENDIF
+    END FUNCTION
+
+    FUNCTION StudentPage
+        DISPLAY "Student Page"
+        INPUT actionType // Borrow or Submit
+        IF actionType == "Borrow" THEN
+            CALL BorrowBook
+        ELSE IF actionType == "Submit" THEN
+            CALL SubmitBook
+        ENDIF
+    END FUNCTION
+
+    FUNCTION BorrowBook
+        INPUT ISBN
+        IF CheckBookStatus(ISBN) == "Available" THEN
+            MakeBookUnavailable(ISBN)
+            UpdateBookStatus(ISBN, "Unavailable")
+            PRINT "Book Borrowed Successfully"
+        ELSE
+            PRINT "Book Already Taken"
+        ENDIF
+    END FUNCTION
+
+    FUNCTION SubmitBook
+        INPUT ISBN
+        MakeBookAvailable(ISBN)
+        UpdateBookStatus(ISBN, "Available")
+        PRINT "Book Submitted Successfully"
+    END FUNCTION
+
+    FUNCTION LibrarianPage
+        DISPLAY "Librarian Page"
+        INPUT librarianAction // Borrow, Receive, Edit Database
+        IF librarianAction == "Borrow" THEN
+            CALL LibrarianBorrowBook
+        ELSE IF librarianAction == "Receive" THEN
+            CALL LibrarianReceiveBook
+        ELSE IF librarianAction == "Edit Database" THEN
+            CALL EditDatabase
+        ENDIF
+    END FUNCTION
+
+    FUNCTION LibrarianBorrowBook
+        INPUT studentID, ISBN
+        IF CheckBookStatus(ISBN) == "Available" THEN
+            MakeBookUnavailable(ISBN)
+            UpdateBookStatus(ISBN, "Unavailable")
+            PRINT "Book Borrowed Successfully"
+        ELSE
+            PRINT "Book Already Taken"
+        ENDIF
+    END FUNCTION
+
+    FUNCTION LibrarianReceiveBook
+        INPUT ISBN
+        MakeBookAvailable(ISBN)
+        UpdateBookStatus(ISBN, "Available")
+        PRINT "Book Received Successfully"
+    END FUNCTION
+
+    FUNCTION EditDatabase
+        DISPLAY "Edit Database"
+        // Perform actions like add/remove/update book records
+        INPUT databaseChanges
+        APPLY ChangesToDatabase(databaseChanges)
+        STORE Changes in Database
+        PRINT "Database Updated Successfully"
+    END FUNCTION
+
+    FUNCTION Authenticate(userID, password)
+        // Check credentials
+        RETURN TRUE or FALSE
+    END FUNCTION
+
+    FUNCTION CheckBookStatus(ISBN)
+        // Check if the book is available or not
+        RETURN "Available" or "Not Available"
+    END FUNCTION
+
+    FUNCTION MakeBookUnavailable(ISBN)
+        // Update database to mark the book as unavailable
+    END FUNCTION
+
+    FUNCTION MakeBookAvailable(ISBN)
+        // Update database to mark the book as available
+    END FUNCTION
+
+    FUNCTION UpdateBookStatus(ISBN, status)
+        // Change book status in database
+    END FUNCTION
+
+    FUNCTION ChangesToDatabase(changes)
+        // Apply changes to database
+    END FUNCTION
+
+END
+---------
